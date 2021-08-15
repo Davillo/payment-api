@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\UserStoreRequest;
+use App\Services\UserService;
+use Illuminate\Http\Response;
+
 class UserController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    private UserService $userService;
+
+    public function __construct(UserService $userService)
     {
-        //
+        $this->userService = $userService;
     }
 
-    //
+    public function store(UserStoreRequest $request)
+    {
+        $data = $request->validated();
+        $user = $this->userService->save($data);
+        return response()->json($user, Response::HTTP_CREATED);
+    }
+
 }

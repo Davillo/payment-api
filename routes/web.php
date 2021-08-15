@@ -1,4 +1,4 @@
-]<?php
+<?php
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
@@ -13,13 +13,12 @@
 |
 */
 
-$router->group(['prefix' => '/api'], function () use ($router) {
-
-        $router->group(['prefix' => '/users'], function () use ($router){
-            $router->get('/');
-        });
-
-        $router->group(['prefix' => '/transactions'], function () use ($router){
-            $router->get('/');
-        });
+$router->get('/', function () use ($router) {
+   return 'api ok';
 });
+
+$router->group(['prefix' => 'auth'], function () use ($router) {
+    $router->post('/', 'AuthenticationController@store');
+});
+
+
