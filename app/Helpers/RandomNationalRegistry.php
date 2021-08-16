@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class RandomNationalRegistry
 {
-    public static function cnpjRandom($mascara = "1") {
+    public static function randomBusinessNationalRegistry($mascara = "1") {
         $n1 = rand(0, 9);
         $n2 = rand(0, 9);
         $n3 = rand(0, 9);
@@ -36,7 +36,7 @@ class RandomNationalRegistry
         return $retorno;
     }
 
-    public static function cpfRandom($mascara = "1") {
+    public static function randomIndividualNationalRegistry($mascara = "1") {
         $n1 = rand(0, 9);
         $n2 = rand(0, 9);
         $n3 = rand(0, 9);

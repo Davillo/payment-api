@@ -27,7 +27,8 @@ class AuthenticationService
         auth()->logout();
     }
 
-    private function getTokenData($token){
+    private function getTokenData($token): array
+    {
         return [
             'access_token' => $token,
             'token_type'   => 'bearer',

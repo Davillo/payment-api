@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests\User;
 
+use App\Models\User;
+use App\Rules\NationalRegistryRule;
+use Illuminate\Validation\Rule;
 use Pearl\RequestValidate\RequestAbstract;
 
 class UserStoreRequest extends RequestAbstract
@@ -24,11 +27,16 @@ class UserStoreRequest extends RequestAbstract
     public function rules(): array
     {
         return [
-            'name'     =>   'required|string|max:255',
-            'cpf'      =>   'required|cpf|unique:users',
-            'email'    =>   'required|email|unique:users',
-            'type'     =>   'required|',
-            'password' =>   'required|confirmed|min:8',
+            'name'                   =>   'required|string|max:255',
+            'national_registry'      =>   ['required', 'string', 'unique:users', new NationalRegistryRule],
+            'email'                  =>   'required|email|unique:users',
+            'type'                   =>   ['required', 'string', Rule::in(
+                [
+                    User::USER_TYPE_CUSTOMER,
+                    User::USER_TYPE_SHOPKEEPER,
+                    User::USER_TYPE_ADMIN])
+                ],
+            'password'               =>   'required|confirmed|min:8',
         ];
     }
 

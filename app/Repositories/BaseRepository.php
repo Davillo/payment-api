@@ -14,14 +14,19 @@ abstract class BaseRepository
         $this->model = $model;
     }
 
+    public function __call($name, $arguments)
+    {
+        return $this->model->{$name}(...$arguments);
+    }
+
     public function store(array $data): Model
     {
         return $this->model->create($data);
     }
 
-    public function getById(int $id): Model
+    public function getById(int $id): ?Model
     {
-        return $this->model->find($id);
+        return $this->model->findOrFail($id);
     }
 
     public function getAll(): Collection
