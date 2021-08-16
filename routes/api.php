@@ -20,12 +20,16 @@ $router->group(['prefix' => '/auth'], function () use ($router){
     $router->delete('/', 'AuthenticationController@destroy');
 });
 
-
 $router->group(['prefix' => '/users'], function () use ($router){
-    $router->post('/', 'UserController@store');
     $router->get('/', 'UserController@index');
     $router->get('/{id}', 'UserController@show');
     $router->put('/{id}', 'UserController@update');
     $router->delete('/{id}', 'UserController@destroy');
+});
+
+$router->group(['prefix' => '/transactions'], function () use ($router){
+    $router->post('/', 'TransactionController@store');
+    $router->get('/', 'TransactionController@index');
+    $router->get('/{id}', 'TransactionController@show');
 });
 

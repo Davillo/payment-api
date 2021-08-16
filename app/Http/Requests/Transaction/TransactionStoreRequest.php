@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Transaction;
 
 use Pearl\RequestValidate\RequestAbstract;
 
-class AuthenticationStoreRequest extends RequestAbstract
+class TransactionStoreRequest extends RequestAbstract
 {
-    private const DEFAULT_AUTHENTICATION_MESSAGE = 'Invalid email or password';
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,8 +24,8 @@ class AuthenticationStoreRequest extends RequestAbstract
     public function rules(): array
     {
         return [
-            'email' => 'required|email|exists:users,email',
-            'password' => 'required'
+            'value'    => 'required|numeric',
+            'payee_id' => 'required|integer|exists:users,id,deleted_at,NULL'
         ];
     }
 
@@ -39,10 +37,11 @@ class AuthenticationStoreRequest extends RequestAbstract
     public function messages(): array
     {
         return [
-            'email.required'    => 'The email are required',
-            'email.email'       => 'The email are invalid',
-            'password.required' => 'The password are required',
-            'email.exists'      => self::DEFAULT_AUTHENTICATION_MESSAGE
+            'value.required' => 'Value is required',
+            'value.numeric' => 'Value needs to be a numeric value',
+            'payee_id.required' => 'The payee id is required',
+            'payee_id.integer'  => 'The payee id needs to be a integer value',
+            'payee_id.exists'  => 'The payee id needs to be a valid user',
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Repositories\UserRepository;
+use App\Repositories\WalletRepository;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserService
@@ -11,6 +12,7 @@ class UserService
     const DEFAULT_PAGINATION_NUMBER = 15;
 
     private UserRepository $userRepository;
+    private WalletRepository $walletRepository;
 
     public function __construct(UserRepository $userRepository)
     {
@@ -19,7 +21,10 @@ class UserService
 
     public function save(array $data): User
     {
-        return $this->userRepository->store($data);
+
+        $user = $this->userRepository->store($data);
+        $this->walletRepository->store(['user_id' => $user->id]);
+        return $user;
     }
 
     public function getById(int $id): ?User

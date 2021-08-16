@@ -7,7 +7,7 @@ use App\Rules\NationalRegistryRule;
 use Illuminate\Validation\Rule;
 use Pearl\RequestValidate\RequestAbstract;
 
-class UserStoreRequest extends RequestAbstract
+class UserUpdateRequest extends RequestAbstract
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,14 +27,14 @@ class UserStoreRequest extends RequestAbstract
     public function rules(): array
     {
         return [
-            'name'                   =>   'required|string|max:255',
-            'national_registry'      =>   ['required', 'string', 'unique:users', new NationalRegistryRule],
-            'email'                  =>   'required|email|unique:users',
-            'type'                   =>   ['required', 'string', Rule::in(
+            'name'                   =>   'sometimes|string|max:255',
+            'national_registry'      =>   ['sometimes', 'string', 'unique:users', new NationalRegistryRule],
+            'email'                  =>   'sometimes|email|unique:users',
+            'type'                   =>   ['sometimes', 'string', Rule::in(
                 [
                     User::USER_TYPE_CUSTOMER, User::USER_TYPE_SHOPKEEPER
                 ])],
-            'password'               =>   'required|confirmed|min:8',
+            'password'               =>   'sometimes|confirmed|min:8',
         ];
     }
 

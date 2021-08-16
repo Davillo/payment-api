@@ -21,26 +21,24 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     const USER_TYPE_SHOPKEEPER = 'SHOPKEEPER';
     const USER_TYPE_ADMIN = 'ADMIN';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name', 'email', 'type', 'national_registry', 'password'
     ];
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
+    protected $appends = [
+        'wallet'
+    ];
+
     protected $hidden = [
         'password',
         'created_at',
         'updated_at',
         'deleted_at'
     ];
+
+    public function getWalletAttribute(){
+        return $this->hasOne(Wallet::class)->first();
+    }
 
     public function setPasswordAttribute($value)
     {
@@ -52,21 +50,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         $this->attributes['national_registry'] = StringHelper::sanitize($value);
     }
 
-    /**
-     * Get the identifier that will be stored in the subject claim of the JWT.
-     *
-     * @return mixed
-     */
     public function getJWTIdentifier()
     {
         return $this->getKey();
     }
 
-    /**
-     * Return a key value array, containing any custom claims to be added to the JWT.
-     *
-     * @return array
-     */
     public function getJWTCustomClaims()
     {
         return [];
