@@ -15,4 +15,10 @@ class WalletRepository extends BaseRepository
     {
         return $this->model->where('user_id', $userId)->firstOrFail();
     }
+
+    public function updateWalletValue(Wallet $wallet, array $attributes)
+    {
+        return $wallet->update($attributes);
+    }
+
 }

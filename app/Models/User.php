@@ -19,7 +19,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     const USER_TYPE_CUSTOMER = 'CUSTOMER';
     const USER_TYPE_SHOPKEEPER = 'SHOPKEEPER';
-    const USER_TYPE_ADMIN = 'ADMIN';
 
     protected $fillable = [
         'name', 'email', 'type', 'national_registry', 'password'

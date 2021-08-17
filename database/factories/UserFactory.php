@@ -25,10 +25,10 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'national_registry' => RandomNationalRegistry::cpfRandom(0),
+            'national_registry' => RandomNationalRegistry::randomIndividualNationalRegistry(0),
             'email' => $this->faker->unique()->safeEmail,
             'password' => '12345678',
-            'type' => Arr::random([User::USER_TYPE_ADMIN, User::USER_TYPE_CUSTOMER, User::USER_TYPE_SHOPKEEPER]),
+            'type' => Arr::random([User::USER_TYPE_CUSTOMER, User::USER_TYPE_SHOPKEEPER]),
         ];
     }
 }

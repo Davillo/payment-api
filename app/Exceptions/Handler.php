@@ -4,7 +4,6 @@ namespace App\Exceptions;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
@@ -56,10 +55,9 @@ class Handler extends ExceptionHandler
         if($exception instanceof ModelNotFoundException)
         {
             $id = Arr::first($exception->getIds());
+            $model = $exception->getModel();
 
-            return response()->json([
-                'message' => 'Model with ID :' . $id . ' not found'
-            ], Response::HTTP_NOT_FOUND);
+            ModelExceptions::notFound($id, $model);
         }
 
         else if($exception instanceof NotFoundHttpException){

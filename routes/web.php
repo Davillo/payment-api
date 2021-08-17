@@ -17,7 +17,6 @@ $router->get('/', function () use ($router) {
    return 'api ok';
 });
 
-$router->post('/', 'UserController@store');
 
 $router->group(['prefix' => 'auth'], function () use ($router) {
     $router->post('/', 'AuthenticationController@store');
