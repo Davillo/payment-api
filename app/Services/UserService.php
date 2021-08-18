@@ -14,9 +14,13 @@ class UserService
     private UserRepository $userRepository;
     private WalletRepository $walletRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(
+        UserRepository $userRepository,
+        WalletRepository $walletRepository
+    )
     {
         $this->userRepository = $userRepository;
+        $this->walletRepository = $walletRepository;
     }
 
     public function save(array $data): User

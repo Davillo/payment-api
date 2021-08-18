@@ -4,12 +4,12 @@ namespace App\Exceptions;
 
 use Illuminate\Http\Response;
 
-class ModelExceptions
+class AuthorizationException
 {
-    public static function notFound(int $id, string $model)
+    public static function unauthorized()
     {
         return CustomHttpException::new()
-            ->setMessage(sprintf('%s with id %s not found', $model, $id))
-            ->setHttpCode(Response::HTTP_NOT_FOUND);
+            ->setMessage('Unauthorized')
+            ->setHttpCode(Response::HTTP_UNAUTHORIZED);
     }
 }

@@ -10,6 +10,8 @@ class Wallet extends Model
 {
     use SoftDeletes, HasFactory;
 
+    protected $table = 'wallets';
+
     protected $fillable = [
         'user_id', 'amount'
     ];

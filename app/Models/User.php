@@ -17,6 +17,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 {
     use Authenticatable, Authorizable, HasFactory, SoftDeletes;
 
+    protected $table = 'users';
+
     const USER_TYPE_CUSTOMER = 'CUSTOMER';
     const USER_TYPE_SHOPKEEPER = 'SHOPKEEPER';
 
@@ -34,6 +36,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'updated_at',
         'deleted_at'
     ];
+
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);
+    }
 
     public function getWalletAttribute(){
         return $this->hasOne(Wallet::class)->first();

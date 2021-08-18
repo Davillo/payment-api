@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\UserStoreRequest;
+use App\Http\Requests\User\UserUpdateRequest;
 use App\Services\UserService;
 use Illuminate\Http\Response;
 
@@ -28,7 +29,7 @@ class UserController extends Controller
         return response()->json(['data' => $user], Response::HTTP_CREATED);
     }
 
-    public function update(int $id, UserStoreRequest $request)
+    public function update(int $id, UserUpdateRequest $request)
     {
         $data = $request->validated();
         $user = $this->userService->update($id, $data);

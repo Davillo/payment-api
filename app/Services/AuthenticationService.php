@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Exceptions\AuthorizationException;
+
 class AuthenticationService
 {
     public const EXPIRES_AT_TIME = 60;
@@ -11,7 +13,7 @@ class AuthenticationService
         $token = auth()->attempt($credentials);
 
         if(! $token){
-            throw new \Exception('E-mail ou senha incorretos');
+            throw AuthorizationException::unauthorized();
         }
 
         return $this->getTokenData($token);

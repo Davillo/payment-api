@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\User\AuthenticationStoreRequest;
+use App\Http\Requests\Authentication\AuthenticationStoreRequest;
 use App\Services\AuthenticationService;
 use Illuminate\Http\Response;
 
@@ -12,7 +12,6 @@ class AuthenticationController extends Controller
 
     public function __construct(AuthenticationService $authenticationService)
     {
-        $this->middleware('auth:api', ['except' => 'store']);
         $this->authenticationService = $authenticationService;
     }
 
