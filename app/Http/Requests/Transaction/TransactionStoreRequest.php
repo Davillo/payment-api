@@ -25,7 +25,7 @@ class TransactionStoreRequest extends RequestAbstract
     {
         return [
             'value'    => 'required|numeric',
-            'payee_id' => 'required|integer|different|exists:users,id,deleted_at,NULL',
+            'payee_id' => 'required|integer|exists:users,id,deleted_at,NULL',
         ];
     }
 
